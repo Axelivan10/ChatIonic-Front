@@ -1,0 +1,55 @@
+  .containertab3a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+   .container3a{
+    width: 1100px;
+    padding: 0;
+    margin: 0;
+  } 
+
+  .div11 .titledivtab3{
+    margin-left: 30px;
+    margin-top: 10px;
+  }
+
+  .div11 .titledivtab3 ion-card-subtitle{
+    margin-top: 10px;
+    /* color: #7e818a ; */
+  }
+
+
+  .div11{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  }
+
+  .container3a .cuenta{
+    margin-left: 35px;
+    color: black;
+    }
+
+  
+   ion-content img{
+    height: 150px;
+    width: 150px;
+  }
+
+  .botontab3{
+    float: right;
+    margin-top: 10px;
+    margin-right: 40px;
+  }
+
+  .icon-only {
+    font-size: 60px;
+  }   
+
+  .div22 {
+    text-align: center;
+  }
+  

@@ -1,0 +1,7 @@
+{
+  "name": "ChatIonic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

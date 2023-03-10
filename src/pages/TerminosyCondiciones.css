@@ -1,0 +1,22 @@
+
+.contenedorprincipal h1, .contenedorprincipal h2, .contenedorprincipal h4{
+    color: black;
+    font-weight: bold;
+}
+
+.contenedorprincipal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.contenedortexto{
+    text-align: justify;
+    padding: 20px;
+    width: 1200px;
+}
+
+.div{
+    margin-top: 40px;
+}
