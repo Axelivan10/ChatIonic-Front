@@ -9,6 +9,8 @@ import {
   IonSearchbar,
   IonBadge,
   IonList,
+  IonButtons,
+  IonBackButton,
 } from "@ionic/react";
 
 import ExploreContainer from "../components/ExploreContainer";
@@ -19,6 +21,9 @@ const TerminosyCondiciones: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
+        <IonButtons slot="start">
+            <IonBackButton defaultHref={"/registro"} />
+          </IonButtons>
           <IonTitle>Terminos y Condiciones</IonTitle>
         </IonToolbar>
       </IonHeader>

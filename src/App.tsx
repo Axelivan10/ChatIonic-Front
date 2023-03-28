@@ -20,6 +20,9 @@ import Resgistro from './pages/Registro';
 import TerminosyCondiciones from './pages/TerminosyCondiciones';
 import Registro2 from './components/Registro2';
 import Login2 from './components/Login2';
+import { useHistory } from 'react-router-dom';
+
+
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -42,7 +45,14 @@ import './theme/variables.css';
 
 setupIonicReact();
 
-const App: React.FC = () => (
+function App() {
+  const history = useHistory();
+
+  const token = localStorage.getItem('myToken');
+
+
+  return(
+
   <IonApp>
     <IonReactRouter>
       <IonTabs>
@@ -62,29 +72,33 @@ const App: React.FC = () => (
           <Route exact path="/registro">
           <Resgistro/>
           </Route>
-          <Route exact path="/tab1" component={Tab1}>
+          <Route exact path="/tab1">
+            <Tab1/>
           </Route>
-          <Route exact path="/tab2/:id" component={Tab2}>
+          <Route exact path="/tab2">
             <Tab2 />
           </Route>
-          <Route path="/tab3/:id" component={Tab3} >
-           
+          <Route path="/tab3">
+            <Tab3/>
           </Route>
           <Route exact path="/">
-            <Redirect to="/tab1" />
+            <Redirect to="/tab1"/>
           </Route>
         </IonRouterOutlet>
         
         <IonTabBar slot="bottom">
+         
           <IonTabButton tab="tab1" href="/tab1">
             <IonIcon icon={peopleOutline} />
             <IonLabel>Tab 1</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
+
+          <IonTabButton /*tab="tab2" href="/tab2/"*/>
             <IonIcon icon={chatboxEllipsesOutline} />
             <IonLabel>Tab 2</IonLabel>
           </IonTabButton>
-           <IonTabButton tab="tab3" href="/tab3"> 
+          
+           <IonTabButton tab="tab3" href="/tab3/"> 
             <IonIcon icon={homeOutline} />
             <IonLabel>Tab 3</IonLabel>
           </IonTabButton>
@@ -93,6 +107,8 @@ const App: React.FC = () => (
       </IonTabs>
     </IonReactRouter>
   </IonApp>
-);
+  )
+  
+};
 
 export default App;

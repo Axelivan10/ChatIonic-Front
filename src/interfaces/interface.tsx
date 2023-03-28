@@ -4,10 +4,12 @@ export  interface LoginData  {
 }
 
 
-export    interface  Message {
-     body: string;
-     from: string;
-     fecha: string;
+export    interface   Message {
+    id? : number, 
+    content : string ,
+    id_usuario_env: number,
+    id_conversacion: number,
+    fecha: string
  }
  
 export   interface  RegisterData   {
@@ -27,3 +29,4 @@ export   interface  RegisterData   {
  export interface storageId {
     id : string
  }
+ 

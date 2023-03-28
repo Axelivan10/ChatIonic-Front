@@ -10,6 +10,7 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  
 } from "@ionic/react";
 import {
   IonButtons,
@@ -21,66 +22,109 @@ import {
   IonCardSubtitle,
   IonCardTitle,
 } from "@ionic/react";
-
+import { peopleCircleSharp } from 'ionicons/icons';
+import { IonRouterLink } from '@ionic/react';
 import { login } from "../service/api";
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 
 import ExploreContainer from "../components/ExploreContainer";
 import "./Login.css";
+import * as firebase from "../firebase.js"
 import { useHistory } from "react-router";
 import { type } from "os";
 
-
+type StateType = {
+  id: number;
+  online: String;
+};
 
 const Login: React.FC = () => {
+
   let navigate = useHistory();
+
   const [showAlert, setShowAlert] = useState(false);
   const [isLoggedin, setIsLoggedin] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const handleSubmit = (e: any) => {
-    console.log(formData);
-
-    console.log("entro al handle");
-    e.preventDefault();
-
-    login(formData)
-      .then((response) => {
-        console.log("LOGIN EXITOSO");
-        navigate.push("/tab3/" + response.data.data.id)
-         // navigate.push("/tab3/",{id: response.data.data.id})
-        const { id } = response.data.data;
-        console.log("Este es el ID del usuario :"+ id)
 
 
-        // console.log(typeof id);
-        // const textoId = JSON.stringify(id);
-        // console.log(typeof textoId);
-        // console.log(textoId);
+  // const validate = (ev: Event) => {
+  //   const value = (ev.target as HTMLInputElement).value;
+  //   setIsValid(undefined);
+  //   if (value === "") return;
+  //   validateEmail(value) !== null ? setIsValid(true) : setIsValid(false);
+  // };
+
+  // const markTouched = () => {
+  //   setIsTouched(true);
+  // };
+
+
+
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+    const data = await login(formData);
+
+    if (data) {
+        // const activo = data.data.data.online
+        // console.log(activo)
+        // const state: StateType = {id: data.data.data.id, online: activo};
+        const id = data.data.data.id
+        localStorage.setItem("token", data.data.token )
+        localStorage.setItem("userActive", id )
+        navigate.push({pathname:'/tab3'/*,state:{data:id}*/})
+        // console.log(id)
         
-        console.log(response.data.token);
-        localStorage.setItem("token", response.data.token);
-        setIsLoggedin(true)
         setFormData({ email: "", password: "" });
-      })
-      .catch((e) => {
-        if (e.message.includes("403")) {
-          console.log("sin errores");
-          setShowAlert(true);
-        }
-      });
-  };
+    }
+  }
 
 
 
+
+
+
+  // const handleSubmit = (e: any) => {
+  //   console.log(formData);
+
+  //   console.log("entro al handle");
+  //   e.preventDefault();
+
+  //   login(formData)
+  //     .then((response) => {
+  //       console.log("LOGIN EXITOSO");
+  //       navigate.push("/tab3/" + response.data.data.id);
+  //       // navigate.push("/tab3/",{id: response.data.data.id})
+  //       const { id } = response.data.data;
+  //       console.log("Este es el ID del usuario :" + id);
+
+  //       // console.log(typeof id);
+  //       // const textoId = JSON.stringify(id);
+  //       // console.log(typeof textoId);
+  //       // console.log(textoId);
+
+  //       console.log(response.data.token);
+  //       localStorage.setItem("token", response.data.token);
+  //       setIsLoggedin(true);
+  //       setFormData({ email: "", password: "" });
+  //     })
+  //     .catch((e) => {
+  //       if (e.message.includes("403")) {
+  //         console.log("sin errores");
+  //         setShowAlert(true);
+  //       }
+  //     });
+  // };
 
   return (
-    
     <IonPage>
-      
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
@@ -95,8 +139,8 @@ const Login: React.FC = () => {
           <div className="form">
             <div className="img">
               <img
-                alt="Silhouette of mountains"
-                src="https://www.clipartmax.com/png/small/344-3442642_clip-art-freeuse-library-profile-man-user-people-icon-icono-de-login.png"
+                alt="login"
+                src={peopleCircleSharp}
               />
             </div>
             <br />
@@ -147,8 +191,9 @@ const Login: React.FC = () => {
                   </IonButton>
 
                   <br />
+                  
                   <p>
-                    ¿No tienes cuenta? <a href="/registro">Registrarse</a>
+                    ¿No tienes cuenta? <IonRouterLink href="/registro">Registrarse</IonRouterLink>
                   </p>
                   <br />
                   <a className="small-text">Olvidé la contraseña</a>
